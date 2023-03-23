@@ -4,7 +4,7 @@
 // document.body.appendChild(canvas)
 function onload() {
     var canvas = document.getElementById("star_background");
-    var gl = canvas.getContext("webgl");
+    var gl = canvas.getContext("webgl", {premultipliedAlpha: true});
 
     var vertexSource = document.querySelector("#vertex-shader").innerHTML;
     var fragmentSource = document.querySelector("#fragment-shader").innerHTML;
@@ -72,8 +72,10 @@ function onload() {
     // is execute once...
   
 	// first, let's clear the screen
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.enable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     // now we draw the triangle
