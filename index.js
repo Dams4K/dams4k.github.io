@@ -83,6 +83,9 @@ function onload() {
     // to use for the data, and that the data goes to the pos
     // attribute
     gl.useProgram(shaderProgram);
+    var uResolutionLocation = gl.getUniformLocation(shaderProgram, "u_resolution");
+    gl.uniform2f(uResolutionLocation, screen.height, screen.height)
+
     gl.bindBuffer(gl.ARRAY_BUFFER, trianglePosBuffer);
     gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, trianglePosBuffer.itemSize, gl.FLOAT, false, 0, 0);
     gl.drawArrays(gl.TRIANGLES, 0, 6);

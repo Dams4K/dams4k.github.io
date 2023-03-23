@@ -13,8 +13,31 @@
         }
     </script>
     <script type="x-shader/x-fragment" id="fragment-shader">
+        #ifdef GL_ES
+        precision mediump float;
+        #endif
+
+        uniform vec2 u_resolution;
+
+        float random(vec2 st) {
+            return fract(sin(dot(st.xy, vec2(12.9898,78.233)))*43758.5453123);
+        }
+
         void main(void) {
-            gl_FragColor = vec4(0.4, 0.0, 0.9, 0.2);
+            vec2 st = gl_FragCoord.xy/u_resolution.xy;
+
+            st *= 200.0; // Scale the coordinate system by 10
+            vec2 ipos = floor(st);  // get the integer coords
+            vec2 fpos = fract(st);  // get the fractional coords
+
+            // Assign a random value based on the integer coord
+            vec3 color = vec3(random( ipos ));
+
+            // Uncomment to see the subdivided grid
+            // color = vec3(fpos,0.0);
+            if (color.r > 0.99) {
+                gl_FragColor = vec4(color,1.0);
+            }
         }
     </script>
     <script src='index.js'></script>
