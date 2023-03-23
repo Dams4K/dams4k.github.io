@@ -70,9 +70,6 @@ body {
 }
 .planet_hitbox {
     position: inherit;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     width: 5vh;
     height: 5vh;
 }

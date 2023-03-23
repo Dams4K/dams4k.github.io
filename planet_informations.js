@@ -5,26 +5,39 @@ const planetDisplayNames = {
 };
 
 class Planet {
-    constructor(image_path, image_size, radius, duration, text) {
-        this.image_path = image_path;
-        this.image_size = image_size;
+    constructor(imagePath, imageSize, radius, duration, text) {
+        this.imagePath = imagePath;
+        this.imageSize = imageSize;
         this.radius = radius;
         this.duration = duration;
         this.text = text;
+
+        this.initialRotation = Math.random() * 360;
+
+        this.planetContainer = null;
+        this.planetHitbox = null;
+        this.label = null;
     }
 
     addPlanet(parent) {
-        var planetContainer = document.createElement("div");
-        planetContainer.style.backgroundImage = `url(${this.image_path})`;
-        planetContainer.style.backgroundSize = this.image_size;
-        planetContainer.style.transformOrigin = "top left";
-        planetContainer.style.width = this.radius;
-        planetContainer.style.height = this.radius;
-        planetContainer.classList.add("planet", "centered");
-        planetContainer.animate(
+        this.planetContainer = this.generateContainer();
+        this.planetHitbox = this.generateHitbox();
+        this.planetContainer.appendChild(this.planetHitbox);
+        parent.appendChild(this.planetContainer);
+    }
+
+    generateContainer() {
+        var newContainer = document.createElement("div");
+        newContainer.style.backgroundImage = `url(${this.imagePath})`;
+        newContainer.style.backgroundSize = this.imageSize;
+        newContainer.style.transformOrigin = "top left";
+        newContainer.style.width = this.radius;
+        newContainer.style.height = this.radius;
+        newContainer.classList.add("planet", "centered");
+        newContainer.animate(
             [
-                {transform: "rotate(0turn)"},
-                {transform: "rotate(1turn)"},
+                {transform: `rotate(${this.initialRotation}deg)`},
+                {transform: `rotate(${this.initialRotation + 360}deg)`},
             ],
             {
                 duration: this.duration,
@@ -32,13 +45,37 @@ class Planet {
             }
         );
 
-        parent.appendChild(planetContainer);
+        return newContainer;
+    }
+
+    generateHitbox() {
+        var newHitbox = document.createElement("div");
+        newHitbox.classList.add("centered");
+        newHitbox.style.width = this.imageSize;
+        newHitbox.style.height = this.imageSize;
+        newHitbox.style.position = "inherite";
+
+        return newHitbox;
+    }
+
+    showText(parent) {
+        this.label = document.createElement("div");
+        this.label.innerText = this.text;
+        this.label.style.position = "absolute";
+        setInterval(() => {
+            var hitboxRect = this.planetHitbox.getBoundingClientRect();
+            this.label.style.top = `${hitboxRect.top}px`;
+            this.label.style.left = `${hitboxRect.left}px`;
+        }, 0.05);
+
+        parent.appendChild(this.label);
     }
 }
 
 const solarSystem = document.getElementById("solar_system");
 var sun = new Planet("assets/textures/sun.gif", "20vh", "20vh", 0, "CPSDisplay");
 var cpsdisplay = new Planet("assets/textures/cpsdisplay.gif", "4vh", "40vh", 15000, "CPSDisplay");
+cpsdisplay.showText(document.body);
 sun.addPlanet(solarSystem);
 cpsdisplay.addPlanet(solarSystem);
 
