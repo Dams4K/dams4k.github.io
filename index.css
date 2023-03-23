@@ -1,0 +1,30 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: rgb(49,29,107);
+    background: linear-gradient(45deg, rgba(49,29,107,1) 0%, rgba(3,0,32,1) 100%);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#star_background {
+    height: 100%;
+    width: 100%;
+}
+
+#star {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 50vh;
+    height: 50vh;
+    transform: translate(-50%, -50%);
+    background-image: url("assets/textures/star_256.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20vh;
+}

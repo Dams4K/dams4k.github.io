@@ -5,10 +5,22 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Main page</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='index.css'>
+    <script type="x-shader/x-vertex" id="vertex-shader">
+        attribute vec3 pos;
+        void main(void) {
+            gl_Position = vec4(pos, 1.0);
+        }
+    </script>
+    <script type="x-shader/x-fragment" id="fragment-shader">
+        void main(void) {
+            gl_FragColor = vec4(0.18, 0.54, 0.34, 1.0);
+        }
+    </script>
+    <script src='index.js'></script>
 </head>
-<body>
-    <a href=https://dams4k.github.io/minecraft-cpsdisplay>JUST A LINK</a>
-</body>
+    <body onload="onload()">
+        <canvas id="star_background"></canvas>
+        <!-- <div id="star">Hello</div> -->
+    </body>
 </html>
