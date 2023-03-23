@@ -81,11 +81,19 @@ class Planet {
 }
 
 const solarSystem = document.getElementById("solar_system");
+
 var sun = new Planet("assets/textures/sun.gif", "20vh", "20vh", 0, "This World");
 sun.textOffsetY = -30;
-sun.showText(document.body);
+sun.showText(solarSystem);
+
 var cpsdisplay = new Planet("assets/textures/cpsdisplay.gif", "4vh", "40vh", 15000, "CPSDisplay");
 cpsdisplay.textOffsetY = 10;
-cpsdisplay.showText(document.body);
+cpsdisplay.showText(solarSystem);
+
+var nsikipedia = new Planet("assets/textures/nsikipedia.gif", "3vh", "20vh", 30000, "NSIkipédia");
+nsikipedia.textOffsetY = 5;
+nsikipedia.showText(solarSystem);
+
 sun.addPlanet(solarSystem);
 cpsdisplay.addPlanet(solarSystem);
+nsikipedia.addPlanet(solarSystem);
