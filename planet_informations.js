@@ -4,6 +4,10 @@ const planetDisplayNames = {
     "cpsdisplay": "CPSDisplay"
 };
 
+function vh2px(vh) {
+    return document.body.offsetHeight * vh/100;
+}
+
 class Planet {
     constructor(imagePath, imageSize, radius, duration, text) {
         this.imagePath = imagePath;
@@ -11,6 +15,7 @@ class Planet {
         this.radius = radius;
         this.duration = duration;
         this.text = text;
+        this.textOffsetY = 0;
 
         this.initialRotation = Math.random() * 360;
 
@@ -64,8 +69,11 @@ class Planet {
         this.label.style.position = "absolute";
         setInterval(() => {
             var hitboxRect = this.planetHitbox.getBoundingClientRect();
-            this.label.style.top = `${hitboxRect.top}px`;
-            this.label.style.left = `${hitboxRect.left}px`;
+            var centerX = (hitboxRect.left+hitboxRect.right)/2;
+            var centerY = (hitboxRect.top+hitboxRect.bottom)/2;
+            console.log(vh2px(parseInt(this.imageSize.substr(0, this.imageSize.length-2))));
+            this.label.style.top = `${centerY + vh2px(parseInt(this.imageSize.substr(0, this.imageSize.length-2)))/2 + this.textOffsetY}px`;
+            this.label.style.left = `${centerX - this.label.offsetWidth/2}px`;
         }, 0.05);
 
         parent.appendChild(this.label);
@@ -73,8 +81,11 @@ class Planet {
 }
 
 const solarSystem = document.getElementById("solar_system");
-var sun = new Planet("assets/textures/sun.gif", "20vh", "20vh", 0, "CPSDisplay");
+var sun = new Planet("assets/textures/sun.gif", "20vh", "20vh", 0, "This World");
+sun.textOffsetY = -30;
+sun.showText(document.body);
 var cpsdisplay = new Planet("assets/textures/cpsdisplay.gif", "4vh", "40vh", 15000, "CPSDisplay");
+cpsdisplay.textOffsetY = 10;
 cpsdisplay.showText(document.body);
 sun.addPlanet(solarSystem);
 cpsdisplay.addPlanet(solarSystem);
