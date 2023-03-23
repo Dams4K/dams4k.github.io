@@ -10,8 +10,8 @@
 }
 
 body {
-    background: rgb(49,29,107);
-    background: linear-gradient(45deg, rgba(49,29,107,1) 0%, rgba(3,0,32,1) 100%);
+    background: rgb(19,4,61);
+    background: linear-gradient(90deg, rgba(19,4,61,1) 0%, rgba(3,0,32,1) 100%); 
     width: 100vw;
     height: 100vh;
     overflow: hidden;
