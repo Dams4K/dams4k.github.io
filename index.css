@@ -1,6 +1,7 @@
 * {
     padding: 0;
     margin: 0;
+    color: white;
 }
 
 body {
@@ -63,6 +64,17 @@ body {
     -o-animation: rotating 10s linear infinite;
     animation: rotating 10s linear infinite;
 }
+.planet_hitbox {
+    position: inherit;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 5vh;
+    height: 5vh;
+}
+.planet_name {
+    text-align: center;
+}
 
 #star_background {
     height: 100%;
@@ -89,5 +101,19 @@ body {
     background-size: 3vh;
     width: 10vh;
     height: 10vh;
+    transform-origin: top left;
+}
+
+#cpsdisplay {
+    -webkit-animation: rotating 15s linear infinite;
+    -moz-animation: rotating 15s linear infinite;
+    -ms-animation: rotating 15s linear infinite;
+    -o-animation: rotating 15s linear infinite;
+    animation: rotating 15s linear infinite;
+
+    background-image: url(assets/textures/cpsdisplay.gif);
+    background-size: 4vh;
+    width: 20vh;
+    height: 20vh;
     transform-origin: top left;
 }

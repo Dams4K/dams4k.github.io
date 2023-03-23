@@ -33,10 +33,11 @@
     <body onload="onload()">
         <canvas id="star_background"></canvas>
         <div id="solar_system" class="centered">
-            <div id="star" class="centered planet"></div>
-            <div class="planet centered rotating" style="background-image: url(assets/textures/cpsdisplay.gif); background-size: 4vh; transform-origin: top left;"></div>
-            <div id="nsikipedia" class="planet centered rotating"></div>
+            <div id="star" class="planet centered"><div id="star_hitbox" class="planet_hitbox"></div></div>
+            <div id="cpsdisplay" class="planet centered"><div id="cpsdisplay_hitbox" class="planet_hitbox"></div></div>
+            <div id="nsikipedia" class="planet centered"><div id="nsikipedia_hitbox" class="planet_hitbox"></div></div>
         </div>
     </body>
     <script src="zoom.js"></script>
+    <script src="planet_informations.js"></script>
 </html>
