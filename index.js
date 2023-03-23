@@ -85,6 +85,8 @@ function onload() {
     gl.useProgram(shaderProgram);
     var uResolutionLocation = gl.getUniformLocation(shaderProgram, "u_resolution");
     gl.uniform2f(uResolutionLocation, screen.height, screen.height)
+    var uTimeLocation = gl.getUniformLocation(shaderProgram, "u_time");
+    gl.uniform1f(uTimeLocation, 0);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, trianglePosBuffer);
     gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, trianglePosBuffer.itemSize, gl.FLOAT, false, 0, 0);
