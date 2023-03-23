@@ -53,12 +53,11 @@ function onload() {
         -1.0,  1.0,  0.0,
         -1.0, -1.0,  0.0,
         1.0, -1.0,  0.0,
-    ];
-    var secondTriangle = [
+
         -1.0,  1.0,  0.0,
         1.0, 1.0, 0.0,
         1.0, -1.0, 0.0
-    ]
+    ];
   
     // we need to put the vertices into a buffer so we can
     // block transfer them to the graphics hardware
@@ -66,13 +65,7 @@ function onload() {
 	gl.bindBuffer(gl.ARRAY_BUFFER, trianglePosBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPos), gl.STATIC_DRAW);
     trianglePosBuffer.itemSize = 3;
-    trianglePosBuffer.numItems = 3;
-    var secondTrianglePosBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, secondTrianglePosBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(secondTriangle), gl.STATIC_DRAW);
-    secondTrianglePosBuffer.itemSize = 3;
-    secondTrianglePosBuffer.numItems = 3;
-
+    trianglePosBuffer.numItems = 6;
 
     
     // this is the "draw scene" function, but since this 
@@ -90,12 +83,5 @@ function onload() {
     gl.useProgram(shaderProgram);
     gl.bindBuffer(gl.ARRAY_BUFFER, trianglePosBuffer);
     gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, trianglePosBuffer.itemSize, gl.FLOAT, false, 0, 0);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
-    gl.bindBuffer(gl.ARRAY_BUFFER, secondTrianglePosBuffer);
-    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, secondTrianglePosBuffer.itemSize, gl.FLOAT, false, 0, 0);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
 }
-
-// var gl = canvas.getContext("webgl");
-// gl.clearColor(.5, 0, 1, 1);
-// gl.clear(gl.COLOR_BUFFER_BIT);
