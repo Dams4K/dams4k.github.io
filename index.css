@@ -53,8 +53,8 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 5vh;
-    width: 10vh;
-    height: 10vh;
+    width: 20vh;
+    height: 20vh;
 }
 .rotating {
     -webkit-animation: rotating 10s linear infinite;
@@ -75,5 +75,19 @@ body {
     background-image: url("assets/textures/star_256.gif");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 20vh;
+    background-size: 10vh;
+}
+
+#nsikipedia {
+    -webkit-animation: rotating 20s linear infinite;
+    -moz-animation: rotating 20s linear infinite;
+    -ms-animation: rotating 20s linear infinite;
+    -o-animation: rotating 20s linear infinite;
+    animation: rotating 20s linear infinite;
+
+    background-image: url(assets/textures/nsikipedia.gif);
+    background-size: 3vh;
+    width: 10vh;
+    height: 10vh;
+    transform-origin: top left;
 }
