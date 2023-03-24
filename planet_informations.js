@@ -1,5 +1,6 @@
 // adding fmod function
 Math.fmod = function (a,b) { return Number((a - (Math.floor(a / b) * b)).toPrecision(8)); };
+Math.randomArbitrary = function(min, max) { return Math.random() * (max - min) + max; }
 
 const planetDisplayNames = {
     "star": "This world",
@@ -71,12 +72,18 @@ class Planet {
         this.label.innerText = this.text;
         this.label.style.position = "absolute";
         setInterval(() => {
+            var body = document.body;
+            var html = document.documentElement;
+            var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+            console.log(height);
             var hitboxRect = this.planetHitbox.getBoundingClientRect();
             var centerX = (hitboxRect.left+hitboxRect.right)/2;
             var centerY = (hitboxRect.top+hitboxRect.bottom)/2;
 
-            this.label.style.top = `${centerY + vh2px(parseInt(this.imageSize.substr(0, this.imageSize.length-2)))/2 + this.textOffsetY}px`;
-            this.label.style.left = `${centerX - this.label.offsetWidth/2}px`;
+            var labelX = centerX - (this.label.offsetWidth)/2;
+            var labelY = centerY + vh2px(parseInt(this.imageSize.substr(0, this.imageSize.length-2)))/2 + this.textOffsetY;
+            this.label.style.left = `${labelX}px`;
+            this.label.style.top = `${labelY}px`;
         }, 0.05);
 
         parent.appendChild(this.label);
@@ -99,7 +106,7 @@ nsikipedia.showText(solarSystem);
 
 var minesweeper = new Planet("assets/textures/minesweeper.gif", "3.5vh", "20vh", 30000, "Minesweeper")
 minesweeper.textOffsetY = 5;
-minesweeper.initialRotation = Math.fmod(nsikipedia.initialRotation + 100, 360);
+minesweeper.initialRotation = Math.fmod(nsikipedia.initialRotation + Math.randomArbitrary(70, 190), 360);
 minesweeper.showText(solarSystem);
 
 sun.addPlanet(solarSystem);
