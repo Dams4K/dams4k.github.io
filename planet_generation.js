@@ -20,12 +20,20 @@ class Planet {
         this.duration = duration;
         this.text = text;
         this.textOffsetY = 0;
+        this.currentTextOffsetY = this.textOffsetY;
 
         this.initialRotation = Math.random() * 360;
 
         this.planetContainer = null;
         this.planetHitbox = null;
         this.label = null;
+
+        this.isOpen = false;
+    }
+
+    setTextOffsetY(v) {
+        this.textOffsetY = v;
+        this.currentTextOffsetY = v;
     }
 
     addPlanet(parent) {
@@ -42,6 +50,7 @@ class Planet {
         newContainer.style.transformOrigin = "top left";
         newContainer.style.width = this.radius;
         newContainer.style.height = this.radius;
+        newContainer.style.pointerEvents = "none";
         newContainer.classList.add("planet", "centered");
         newContainer.animate(
             [
@@ -63,6 +72,8 @@ class Planet {
         newHitbox.style.width = this.imageSize;
         newHitbox.style.height = this.imageSize;
         newHitbox.style.position = "inherite";
+        newHitbox.style.pointerEvents = "all";
+        newHitbox.addEventListener("click", (event) => { this.onClick(event); });
 
         return newHitbox;
     }
@@ -71,41 +82,52 @@ class Planet {
         this.label = document.createElement("div");
         this.label.innerText = this.text;
         this.label.style.position = "absolute";
+        this.label.style.zIndex = 10;
         setInterval(() => {
             var body = document.body;
             var html = document.documentElement;
-            var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-            console.log(height);
+            
             var hitboxRect = this.planetHitbox.getBoundingClientRect();
             var centerX = (hitboxRect.left+hitboxRect.right)/2;
             var centerY = (hitboxRect.top+hitboxRect.bottom)/2;
 
             var labelX = centerX - (this.label.offsetWidth)/2;
-            var labelY = centerY + vh2px(parseInt(this.imageSize.substr(0, this.imageSize.length-2)))/2 + this.textOffsetY;
+            var labelY = centerY + vh2px(parseInt(this.imageSize.substr(0, this.imageSize.length-2)))/2 + this.currentTextOffsetY;
             this.label.style.left = `${labelX}px`;
             this.label.style.top = `${labelY}px`;
         }, 0.05);
 
         parent.appendChild(this.label);
     }
+
+    onClick(event) {
+        console.log(event);
+        if (this.isOpen) {
+            this.isOpen = false;
+            this.currentTextOffsetY = this.textOffsetY;
+        } else {
+            this.isOpen = true;
+            this.currentTextOffsetY = this.textOffsetY + 100;
+        }
+    }
 }
 
 const solarSystem = document.getElementById("solar_system");
 
 var sun = new Planet("assets/textures/sun.gif", "20vh", "20vh", 0, "This World");
-sun.textOffsetY = -30;
+sun.setTextOffsetY(-30);
 sun.showText(solarSystem);
 
 var cpsdisplay = new Planet("assets/textures/cpsdisplay.gif", "4vh", "30vh", 25000, "CPSDisplay");
-cpsdisplay.textOffsetY = 10;
+cpsdisplay.setTextOffsetY(10);
 cpsdisplay.showText(solarSystem);
 
 var nsikipedia = new Planet("assets/textures/nsikipedia.gif", "3vh", "20vh", 30000, "NSIkipédia");
-nsikipedia.textOffsetY = 5;
+nsikipedia.setTextOffsetY(5);
 nsikipedia.showText(solarSystem);
 
-var minesweeper = new Planet("assets/textures/minesweeper.gif", "3.5vh", "20vh", 30000, "Minesweeper")
-minesweeper.textOffsetY = 5;
+var minesweeper = new Planet("assets/textures/minesweeper.gif", "3.5vh", "20vh", 30000, "MinesweeperNSI")
+minesweeper.setTextOffsetY(5);
 minesweeper.initialRotation = Math.fmod(nsikipedia.initialRotation + Math.randomArbitrary(70, 190), 360);
 minesweeper.showText(solarSystem);
 
