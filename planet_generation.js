@@ -19,8 +19,10 @@ class Planet {
         this.radius = radius;
         this.duration = duration;
         this.text = text;
+
         this.textOffsetY = 0;
         this.currentTextOffsetY = this.textOffsetY;
+        this.textOffsetYTransitionCounter = 0;
 
         this.initialRotation = Math.random() * 360;
 
@@ -104,10 +106,28 @@ class Planet {
         console.log(event);
         if (this.isOpen) {
             this.isOpen = false;
-            this.currentTextOffsetY = this.textOffsetY;
+            // this.currentTextOffsetY = this.textOffsetY;
+            this.textOffsetYTransitionCounter = 0;
+            var int = setInterval(() => {
+                if (this.textOffsetYTransitionCounter > 10) {
+                    clearInterval(int);
+                } else {
+                    this.currentTextOffsetY -= 10;
+                }
+                this.textOffsetYTransitionCounter++;
+            }, 0.05);
         } else {
             this.isOpen = true;
-            this.currentTextOffsetY = this.textOffsetY + 100;
+            // this.currentTextOffsetY = this.textOffsetY + 100;
+            this.textOffsetYTransitionCounter = 0;
+            var int = setInterval(() => {
+                if (this.textOffsetYTransitionCounter > 10) {
+                    clearInterval(int);
+                } else {
+                    this.currentTextOffsetY += 10;
+                }
+                this.textOffsetYTransitionCounter++;
+            }, 0.05);
         }
     }
 }
