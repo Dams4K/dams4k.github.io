@@ -134,7 +134,7 @@ class Planet {
 
 const solarSystem = document.getElementById("solar_system");
 
-var sun = new Planet("assets/textures/sun.gif", "20vh", "20vh", 0, "This World");
+var sun = new Planet("assets/textures/sun.gif", "20vh", "20vh", 0, "Github");
 sun.setTextOffsetY(-30);
 sun.showText(solarSystem);
 
