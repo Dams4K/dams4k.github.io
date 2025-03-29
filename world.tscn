@@ -1,0 +1,86 @@
+[gd_scene load_steps=13 format=3 uid="uid://cy7m5cen078yp"]
+
+[ext_resource type="Script" uid="uid://brohejsiwqmcm" path="res://planets/planet.gd" id="2_fj7yv"]
+[ext_resource type="Resource" uid="uid://blelxh1rbplgp" path="res://planets/settings/lava_world.tres" id="3_aqk2v"]
+[ext_resource type="Script" uid="uid://y6v114p7pq0u" path="res://camera/constrol_camera_2d.gd" id="3_tlwt5"]
+[ext_resource type="Script" uid="uid://ba7dswkq2wjgd" path="res://orbital_object.gd" id="4_aqk2v"]
+[ext_resource type="Shader" uid="uid://dtcq23bbfaf6g" path="res://planets/shaders/NoAtmosphere.gdshader" id="5_gbfbk"]
+[ext_resource type="Shader" uid="uid://pee8p8y1p474" path="res://planets/shaders/Craters.gdshader" id="6_ioo17"]
+[ext_resource type="Shader" uid="uid://dqxi62lba23ld" path="res://planets/shaders/Rivers.gdshader" id="7_wse8f"]
+[ext_resource type="Script" uid="uid://dqxd8xcb720yp" path="res://planets/planet_settings.gd" id="8_ic0uy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gbfbk"]
+shader = ExtResource("5_gbfbk")
+shader_parameter/pixels = 64.0
+shader_parameter/rotation = 0.0
+shader_parameter/light_origin = Vector2(0.39, 0.39)
+shader_parameter/time_speed = 0.2
+shader_parameter/dither_size = 2.0
+shader_parameter/light_border_1 = 0.4
+shader_parameter/light_border_2 = 0.6
+shader_parameter/colors = PackedColorArray(0.560784, 0.301961, 0.341176, 1, 0.321569, 0.2, 0.247059, 1, 0.239216, 0.160784, 0.211765, 1)
+shader_parameter/size = 10.0
+shader_parameter/OCTAVES = 3
+shader_parameter/seed = 1.551
+shader_parameter/time = 0.0
+shader_parameter/should_dither = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ioo17"]
+shader = ExtResource("6_ioo17")
+shader_parameter/pixels = 64.0
+shader_parameter/rotation = 0.0
+shader_parameter/light_origin = Vector2(0.39, 0.39)
+shader_parameter/time_speed = 0.2
+shader_parameter/light_border = 0.4
+shader_parameter/colors = PackedColorArray(0.321569, 0.2, 0.247059, 1, 0.239216, 0.160784, 0.211765, 1)
+shader_parameter/size = 3.5
+shader_parameter/seed = 1.561
+shader_parameter/time = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wse8f"]
+shader = ExtResource("7_wse8f")
+shader_parameter/pixels = 64.0
+shader_parameter/rotation = 0.0
+shader_parameter/light_origin = Vector2(0.39, 0.39)
+shader_parameter/time_speed = 0.2
+shader_parameter/light_border_1 = 0.019
+shader_parameter/light_border_2 = 0.036
+shader_parameter/river_cutoff = 0.579
+shader_parameter/colors = PackedColorArray(1, 0.537255, 0.2, 1, 0.901961, 0.270588, 0.223529, 1, 0.678431, 0.184314, 0.270588, 1)
+shader_parameter/size = 10.0
+shader_parameter/OCTAVES = 4
+shader_parameter/seed = 2.527
+shader_parameter/time = 0.0
+
+[sub_resource type="Resource" id="Resource_gbfbk"]
+script = ExtResource("8_ic0uy")
+size = 64.0
+rotation = 0.0
+light_origin = Vector2(0.39, 0.39)
+time_speed = 2.0
+materials = Array[ShaderMaterial]([SubResource("ShaderMaterial_gbfbk"), SubResource("ShaderMaterial_ioo17"), SubResource("ShaderMaterial_wse8f")])
+metadata/_custom_type_script = "uid://dqxd8xcb720yp"
+
+[node name="World" type="Node2D"]
+
+[node name="ControlCamera2D" type="Camera2D" parent="."]
+ignore_rotation = false
+script = ExtResource("3_tlwt5")
+metadata/_custom_type_script = "uid://y6v114p7pq0u"
+
+[node name="Planet" type="Node2D" parent="."]
+script = ExtResource("2_fj7yv")
+settings = ExtResource("3_aqk2v")
+metadata/_custom_type_script = "uid://brohejsiwqmcm"
+
+[node name="OrbitalObject" type="Node2D" parent="Planet"]
+rotation = 5.24969
+script = ExtResource("4_aqk2v")
+radius = 256.0
+metadata/_custom_type_script = "uid://ba7dswkq2wjgd"
+
+[node name="Planet" type="Node2D" parent="Planet/OrbitalObject"]
+position = Vector2(256, 0)
+script = ExtResource("2_fj7yv")
+settings = SubResource("Resource_gbfbk")
+metadata/_custom_type_script = "uid://brohejsiwqmcm"

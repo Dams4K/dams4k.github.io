@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cu700qruqegh6"]
+
+[ext_resource type="Script" uid="uid://brohejsiwqmcm" path="res://planets/planet.gd" id="1_xgwrp"]
+[ext_resource type="Resource" uid="uid://bwulkvyol225" path="res://planets/settings/star.tres" id="2_60e5m"]
+[ext_resource type="Script" uid="uid://c57nuhin2n3vf" path="res://camera/focusable.gd" id="3_60e5m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_60e5m"]
+radius = 64.0
+
+[node name="Planet" type="Node2D"]
+script = ExtResource("1_xgwrp")
+settings = ExtResource("2_60e5m")
+
+[node name="FocusAble" type="Area2D" parent="."]
+script = ExtResource("3_60e5m")
+metadata/_custom_type_script = "uid://c57nuhin2n3vf"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FocusAble"]
+shape = SubResource("CircleShape2D_60e5m")
