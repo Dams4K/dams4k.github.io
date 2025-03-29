@@ -11,8 +11,6 @@ permissions:
   contents: write
 
 env:
-  GODOT_MAJOR_MINOR_VERSION: "4.4" # must be a string, not a number
-  GODOT_PATCH_VERSION: stable
   GODOT_VERSION: 4.4-stable
   GODOT_VERSION2: 4.4.stable
 
