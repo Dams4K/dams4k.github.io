@@ -1,7 +1,11 @@
-baseURL: https://example.org/
-languageCode: en-us
-title: My New Hugo Site
+baseURL: https://dams4k.github.io/
+languageCode: fr-FR
+title: Trucs
 theme: ["PaperMod"]
+
+params:
+  author: "Dams4K"
+
 caches:
   images:
     dir: :cacheDir/images
