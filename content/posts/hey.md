@@ -1,6 +1,5 @@
 ---
 date: '2026-02-23T21:54:28+01:00'
-draft: false
 title: 'Hey'
 weight: 1
 ---
