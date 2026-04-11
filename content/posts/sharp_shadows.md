@@ -50,8 +50,6 @@ On est même plus net qu'en changeant la résolution de la shadow map ! Le seul 
 
 ![Issue](/images/sharp_shadows/splits_issue.png#center)
 
-Et le problème c'est qu'on demande au 
-
 Le problème se voit assez bien si on active la vue `Perpective > Display Advanced > Directional Shadow Map`. Voici la comparaison avec les paramètres par défaut, et avec nos paramètres :
 
 ![Directional Shadow Map](/images/sharp_shadows/splits_debug_view.png#center)
@@ -76,11 +74,11 @@ La distance max a été largement baissée pour qu'on puisse voir le résultat s
 
 Si on a des objets qui se déplacent dans la scène, il suffit de changer le `gi_mode` en `DISABLED`, le lightmapGI l'ignorera.
 
-Évidemment ça aura un coup en mémoire d'utiliser cette méthode, mais il n'y aura jamais de solution miracle (sinon elle serait déjà implémentée et utilisée par défaut dans le moteur)
+Évidemment ça aura un coût en mémoire d'utiliser cette méthode, mais il n'y aura jamais de solution miracle (sinon elle serait déjà implémentée et utilisée par défaut dans le moteur)
 
 ## SpotLight3D & OmniLight3D
 
-Pour eux, ils n'ont pas de splits. Leur système est différent et je ne me suis pas plus renseigné que ça, mais ils n'ont pas de distance max, donc un LightmapGI ne peut pas afficher des ombres précalculées quand on est trop loin. Cependant si on change leur `light_bake_mode` en `STATIC` alors là, la lumière ET l'ombre seront précalculée.
+Pour eux, ils n'ont pas de splits. Leur système est différent et je ne me suis pas plus renseigné que ça, mais ils n'ont pas `shadow_max_distance`, donc un LightmapGI ne peut pas afficher des ombres précalculées quand on est trop loin. Cependant si on change leur `light_bake_mode` en `STATIC` alors là, la lumière ET l'ombre seront précalculée.
 
 Mais de base leurs ombres sont assez bien définies. Si on veut vraiment avoir des ombres plus nettes, il faut jouer, soit avec la taille de l'atlas, mais on a les mêmes problèmes qu'avec la taille des shadows maps, soit on joue avec les subdivisions des quadrants de l'atlas. La [documentation](https://docs.godotengine.org/en/4.6/tutorials/3d/lights_and_shadows.html#shadow-atlas) semble assez claire à ce sujet, donc pas besoin de développer plus que ça.
 
@@ -96,7 +94,7 @@ J'ai testé avec `far = 20`, et le résultat est très bien. Cependant il faut s
 
 ![Orthogonal Display Directional Splits](/images/sharp_shadows/ortho_directional_shadow_splits.png#center)
 
-Et je ne pense pas que chercher des bonnes valeurs pour que chaque splits prennent un quart de l'écran soit la bonne solution. Non en vrai, ce qu'il faut faire, c'est utiliser le mode `Orthogonal` de la direction light. Dans ce cas précis d'utilisation, il n'y a aucune perte de qualitée visible.
+Et je ne pense pas que chercher des bonnes valeurs pour que chaque splits prennent un quart de l'écran soit la bonne solution. Non en vrai, ce qu'il faut faire, c'est utiliser le mode `Orthogonal` de la direction light. Dans ce cas précis d'utilisation, il n'y a aucune perte de qualité visible.
 
 ### Shadow blur
 
@@ -104,7 +102,7 @@ Ce que j'aime bien faire dans cette projection orthogonale, c'est de diminuer fo
 
 Par contre, attention à ne pas mettre 0, sinon on peut avoir des artefacts visuels dont je ne connais pas la raison.
 
-![Shadow blur comparaison](/images/sharp_shadows/shadow_blur.png)
+![Shadow blur comparaison](/images/sharp_shadows/shadow_blur.png#center)
 
 Ah et comme on a quasiment désactivé le blur, autant changer le paramètre `rendering/lights_and_shadows/directional_shadow/soft_shadow_filter_quality` à `Hard`, honnêtement je ne vois pas la différence.
 
@@ -115,5 +113,3 @@ Il me semble personnelement que la meilleure solution pour avec des ombres nette
 Pour les omni et spot lights, on peut jouer avec les subdivisions des 4 quadrants, peut-être qu'on peut modifier ça à la volée, pour avoir différents paramètres en fonction des scènes.
 
 Et évidemment il faut quand même modifier la taille des shadow maps et des atlas, même s'il ne faut pas trop abuser sur les valeurs, on peut quand même avoir différents presets allant de `Low` à `Very high` avec différentes valeurs.
-
-Putain avoir des ombres nettes c'est CHIANT ! Et si Unreal Engine arrive à avoir une ombre de bonne qualité facilement, c'est car ils utilisent des Virtual Shadow Maps, je ne me suis pas renseigné pour connaître les détails techniques.
