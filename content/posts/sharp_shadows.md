@@ -2,7 +2,6 @@
 date: '2026-04-10T15:04:17Z'
 draft: false
 title: 'Sharp Shadows'
-weight: 1
 ---
 
 # Ombres nettes

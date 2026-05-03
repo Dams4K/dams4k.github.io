@@ -1,7 +1,6 @@
 ---
 date: '2026-04-08T18:03:00+01:00'
 title: 'Top Down - Room bases'
-weight: 1
 ---
 
 # Room bases
